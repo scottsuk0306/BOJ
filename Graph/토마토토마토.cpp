@@ -12,6 +12,18 @@ int dy[] = {1,-1,0,0,0,0};
 int dz[] = {0,0,0,0,-1,1};
 int n,m,h;
 
+void check_arr(){
+	for(int k=0;k<h;k++){
+    	for (int i=0; i<n; i++) {
+	        for (int j=0; j<m; j++) {
+	            printf("%d ",dist[i][j][k]);
+	        }
+	        printf("\n");
+    	}
+    	// printf("\n");
+    	
+	}
+}
 int bfs(){
 	int maxi = 0;
 	queue<tuple<int,int,int>> q;
@@ -26,19 +38,21 @@ int bfs(){
     	}
 	}
 	while (!q.empty()) {
+//		printf("\n");
+//		check_arr();
+//		printf("\n");
         int x = get<0>(q.front());
         int y = get<1>(q.front());
         int z = get<2>(q.front());
         q.pop();
-        for (int k=0; k<8; k++) {
+        for (int k=0; k<6; k++) {
             int nx = x+dx[k];
             int ny = y+dy[k];
-            int nz = z+dy[k];
+            int nz = z+dz[k];
             if (0 <= nx && nx < n && 0 <= ny && ny < m && 0 <= nz && nz < h) {
-            	if (a[nx][ny][nz] == 0 && dist[nx][ny][nz] == -1) {
+            	if (a[nx][ny][nz] == 0 && (dist[nx][ny][nz] == -1 || dist[nx][ny][nz] > (dist[x][y][z]+1))) {
                     q.push(make_tuple(nx,ny,nz));
                     dist[nx][ny][nz] = dist[x][y][z]+1;
-                    maxi = max(maxi,dist[nx][ny][nz]);
                 }
         	}
     	}
@@ -46,7 +60,10 @@ int bfs(){
 	for(int k=0;k<h;k++){
     	for (int i=0; i<n; i++) {
 	        for (int j=0; j<m; j++) {
-	            if(dist[i][j][k]==-1) return -1;
+	            if(dist[i][j][k]==-1){
+	            	if(a[i][j][k]==0) return -1;
+				}
+	            maxi = max(maxi, dist[i][j][k]);
 	        }
     	}
 	}
