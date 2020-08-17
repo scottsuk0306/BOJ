@@ -1,2 +1,2 @@
 # BOJ
-Baekjoon Online Judge problem solving records
+Baekjoon Online Judge problem solving records + Algorithm Study records
