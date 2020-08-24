@@ -64,13 +64,11 @@ int main(){
 		}
 	}
 	int ans=400;
-	for(int t=1;t<=k;t++){
+	for(int t=0;t<=k;t++){
 		int temp=bfs(0,0,t);
 		if(ans>temp&&temp!=-1) ans=temp;
 		memset(visited,false,sizeof(visited));
 		memset(dist,400,sizeof(dist));
 	}
-//	int temp=bfs(0,0,2);
-//	printf("%d\n",temp);
 	printf("%d",ans);
 } 
